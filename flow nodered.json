@@ -1,0 +1,903 @@
+[
+    {
+        "id": "80f9e77d2f52f0b2",
+        "type": "tab",
+        "label": "DiviD - Dividas",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c5a8208ebff37ea7",
+        "type": "cloudantplus out",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "cloudant": "3d51870521e99801",
+        "database": "dividdividas",
+        "service": "_ext_",
+        "payonly": true,
+        "operation": "insert",
+        "x": 390,
+        "y": 20,
+        "wires": [
+            [
+                "4878fe8dadc21983"
+            ]
+        ]
+    },
+    {
+        "id": "fc23a32428ed4bcb",
+        "type": "http response",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 690,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "f9e4388ded384425",
+        "type": "split",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 250,
+        "y": 20,
+        "wires": [
+            [
+                "c5a8208ebff37ea7"
+            ]
+        ]
+    },
+    {
+        "id": "4878fe8dadc21983",
+        "type": "join",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "mode": "auto",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": true,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 530,
+        "y": 20,
+        "wires": [
+            [
+                "fc23a32428ed4bcb",
+                "be8e7a4e2d0ad326"
+            ]
+        ]
+    },
+    {
+        "id": "be8e7a4e2d0ad326",
+        "type": "debug",
+        "z": "80f9e77d2f52f0b2",
+        "name": "debug 28",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "9c22025b9ca6ae8a",
+        "type": "http in",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "url": "/dividdividas",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 20,
+        "wires": [
+            [
+                "f9e4388ded384425"
+            ]
+        ]
+    },
+    {
+        "id": "cc0b391b36681d71",
+        "type": "http in",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "url": "/dividdividas",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 120,
+        "wires": [
+            [
+                "999c4906623cde56"
+            ]
+        ]
+    },
+    {
+        "id": "f5b67db50be8e602",
+        "type": "http response",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 530,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "7ea2a2ed5ca63ea2",
+        "type": "debug",
+        "z": "80f9e77d2f52f0b2",
+        "name": "debug 29",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "999c4906623cde56",
+        "type": "cloudantplus in",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "cloudant": "3d51870521e99801",
+        "database": "dividdividas",
+        "service": "_ext_",
+        "search": "_all_",
+        "design": "",
+        "index": "",
+        "x": 250,
+        "y": 120,
+        "wires": [
+            [
+                "7ea2a2ed5ca63ea2",
+                "5fe82a81875cc6a5"
+            ]
+        ]
+    },
+    {
+        "id": "5fe82a81875cc6a5",
+        "type": "json",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 410,
+        "y": 80,
+        "wires": [
+            [
+                "f5b67db50be8e602"
+            ]
+        ]
+    },
+    {
+        "id": "156af8c83d367b7f",
+        "type": "http in",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "url": "/dividdividas",
+        "method": "delete",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 260,
+        "wires": [
+            [
+                "2635fc3b85ba9348"
+            ]
+        ]
+    },
+    {
+        "id": "c3ad2ee8eaa831d5",
+        "type": "debug",
+        "z": "80f9e77d2f52f0b2",
+        "name": "debug 30",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "4ef5f1f08ac368f9",
+        "type": "http response",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 450,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "2635fc3b85ba9348",
+        "type": "cloudantplus out",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "cloudant": "3d51870521e99801",
+        "database": "dividdividas",
+        "service": "_ext_",
+        "payonly": true,
+        "operation": "delete",
+        "x": 290,
+        "y": 260,
+        "wires": [
+            [
+                "c3ad2ee8eaa831d5",
+                "4ef5f1f08ac368f9"
+            ]
+        ]
+    },
+    {
+        "id": "d2de71d16acf4396",
+        "type": "http in",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "url": "/dividgrupos",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 440,
+        "wires": [
+            [
+                "19701fc0391c6b3d"
+            ]
+        ]
+    },
+    {
+        "id": "19701fc0391c6b3d",
+        "type": "cloudantplus in",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "cloudant": "3d51870521e99801",
+        "database": "dividgrupos",
+        "service": "_ext_",
+        "search": "_all_",
+        "design": "",
+        "index": "",
+        "x": 270,
+        "y": 440,
+        "wires": [
+            [
+                "1914c7474c58168f",
+                "a6bc6464f6c43312"
+            ]
+        ]
+    },
+    {
+        "id": "1914c7474c58168f",
+        "type": "http response",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 430,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "0e9fbfdb572fcbbf",
+        "type": "http in",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "url": "/dividgrupos",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 520,
+        "wires": [
+            [
+                "455106cdf490d0ce"
+            ]
+        ]
+    },
+    {
+        "id": "455106cdf490d0ce",
+        "type": "cloudantplus out",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "cloudant": "3d51870521e99801",
+        "database": "dividgrupos",
+        "service": "_ext_",
+        "payonly": true,
+        "operation": "insert",
+        "x": 270,
+        "y": 520,
+        "wires": [
+            [
+                "3d5d1fae4811c492",
+                "e696cdfbf2349691"
+            ]
+        ]
+    },
+    {
+        "id": "3d5d1fae4811c492",
+        "type": "http response",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 450,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "a6bc6464f6c43312",
+        "type": "debug",
+        "z": "80f9e77d2f52f0b2",
+        "name": "debug 31",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "e696cdfbf2349691",
+        "type": "debug",
+        "z": "80f9e77d2f52f0b2",
+        "name": "debug 32",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "f0c3347cf0b6c4ce",
+        "type": "http in",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "url": "/dividgrupos",
+        "method": "delete",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 640,
+        "wires": [
+            [
+                "fbde795e98012f5c"
+            ]
+        ]
+    },
+    {
+        "id": "fbde795e98012f5c",
+        "type": "cloudantplus out",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "cloudant": "3d51870521e99801",
+        "database": "dividgrupos",
+        "service": "_ext_",
+        "payonly": true,
+        "operation": "delete",
+        "x": 270,
+        "y": 640,
+        "wires": [
+            [
+                "fa36cd72de302bb4",
+                "cd27a39c4e268728"
+            ]
+        ]
+    },
+    {
+        "id": "fa36cd72de302bb4",
+        "type": "http response",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 450,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "cd27a39c4e268728",
+        "type": "debug",
+        "z": "80f9e77d2f52f0b2",
+        "name": "debug 33",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "c26a10928a57a7c5",
+        "type": "http in",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "url": "/dividusuarios",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 840,
+        "wires": [
+            [
+                "d823efb588a3dcc9"
+            ]
+        ]
+    },
+    {
+        "id": "d823efb588a3dcc9",
+        "type": "cloudantplus in",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "cloudant": "3d51870521e99801",
+        "database": "dividusuarios",
+        "service": "_ext_",
+        "search": "_all_",
+        "design": "",
+        "index": "",
+        "x": 290,
+        "y": 840,
+        "wires": [
+            [
+                "634ff431891cd23b",
+                "036dcdabe1682af0"
+            ]
+        ]
+    },
+    {
+        "id": "634ff431891cd23b",
+        "type": "http response",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 450,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "bbfb7f953aa9e984",
+        "type": "http in",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "url": "/dividusuarios",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 920,
+        "wires": [
+            [
+                "f74239a5105536c3"
+            ]
+        ]
+    },
+    {
+        "id": "f74239a5105536c3",
+        "type": "cloudantplus out",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "cloudant": "3d51870521e99801",
+        "database": "dividusuarios",
+        "service": "_ext_",
+        "payonly": true,
+        "operation": "insert",
+        "x": 290,
+        "y": 920,
+        "wires": [
+            [
+                "2415b49c69a62e61",
+                "c0b44c110eeab0d6"
+            ]
+        ]
+    },
+    {
+        "id": "2415b49c69a62e61",
+        "type": "http response",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 470,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "036dcdabe1682af0",
+        "type": "debug",
+        "z": "80f9e77d2f52f0b2",
+        "name": "debug 34",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "c0b44c110eeab0d6",
+        "type": "debug",
+        "z": "80f9e77d2f52f0b2",
+        "name": "debug 35",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "cefbe702d501c677",
+        "type": "http in",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "url": "/dividusuarios",
+        "method": "delete",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 100,
+        "y": 1040,
+        "wires": [
+            [
+                "f4b471cab95a8411"
+            ]
+        ]
+    },
+    {
+        "id": "f4b471cab95a8411",
+        "type": "cloudantplus out",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "cloudant": "3d51870521e99801",
+        "database": "dividusuarios",
+        "service": "_ext_",
+        "payonly": true,
+        "operation": "delete",
+        "x": 290,
+        "y": 1040,
+        "wires": [
+            [
+                "379eab0ce6f35a5f",
+                "3fa5300aaba081ac"
+            ]
+        ]
+    },
+    {
+        "id": "379eab0ce6f35a5f",
+        "type": "http response",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 470,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "3fa5300aaba081ac",
+        "type": "debug",
+        "z": "80f9e77d2f52f0b2",
+        "name": "debug 36",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "0986e3e2c9a7e987",
+        "type": "http in",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "url": "/dividdespesas",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 1240,
+        "wires": [
+            [
+                "03abfd3c1f46fde9"
+            ]
+        ]
+    },
+    {
+        "id": "03abfd3c1f46fde9",
+        "type": "cloudantplus in",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "cloudant": "3d51870521e99801",
+        "database": "dividdespesas",
+        "service": "_ext_",
+        "search": "_all_",
+        "design": "",
+        "index": "",
+        "x": 280,
+        "y": 1240,
+        "wires": [
+            [
+                "29eb70c153be4408",
+                "36ee7435a78dab22"
+            ]
+        ]
+    },
+    {
+        "id": "29eb70c153be4408",
+        "type": "http response",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 450,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "562619049ec109c3",
+        "type": "http in",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "url": "/dividdespesas",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 100,
+        "y": 1320,
+        "wires": [
+            [
+                "f126146a4940b22f"
+            ]
+        ]
+    },
+    {
+        "id": "f126146a4940b22f",
+        "type": "cloudantplus out",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "cloudant": "3d51870521e99801",
+        "database": "dividdespesas",
+        "service": "_ext_",
+        "payonly": true,
+        "operation": "insert",
+        "x": 300,
+        "y": 1320,
+        "wires": [
+            [
+                "fbddaff2bf30dfa0",
+                "302a6308a8c2b0c4"
+            ]
+        ]
+    },
+    {
+        "id": "fbddaff2bf30dfa0",
+        "type": "http response",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 490,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "36ee7435a78dab22",
+        "type": "debug",
+        "z": "80f9e77d2f52f0b2",
+        "name": "debug 37",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "302a6308a8c2b0c4",
+        "type": "debug",
+        "z": "80f9e77d2f52f0b2",
+        "name": "debug 38",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "02e1fa0ea33245b4",
+        "type": "http in",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "url": "/dividdespesas",
+        "method": "delete",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 100,
+        "y": 1440,
+        "wires": [
+            [
+                "a117be50fe4cb423"
+            ]
+        ]
+    },
+    {
+        "id": "a117be50fe4cb423",
+        "type": "cloudantplus out",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "cloudant": "3d51870521e99801",
+        "database": "dividdespesas",
+        "service": "_ext_",
+        "payonly": true,
+        "operation": "delete",
+        "x": 300,
+        "y": 1440,
+        "wires": [
+            [
+                "85a7d6f86701fa1c"
+            ]
+        ]
+    },
+    {
+        "id": "85a7d6f86701fa1c",
+        "type": "http response",
+        "z": "80f9e77d2f52f0b2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 450,
+        "y": 1440,
+        "wires": []
+    },
+    {
+        "id": "e16c2f7ca1936f66",
+        "type": "comment",
+        "z": "80f9e77d2f52f0b2",
+        "name": "DiviD Dividas",
+        "info": "# DiviD Dividas\n## Flow para POST, GET e DELETE de dívidas",
+        "x": 670,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "0db38cef92d07e67",
+        "type": "comment",
+        "z": "80f9e77d2f52f0b2",
+        "name": "=============================================================================================",
+        "info": "",
+        "x": 420,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "855185ec91bb69d4",
+        "type": "comment",
+        "z": "80f9e77d2f52f0b2",
+        "name": "=============================================================================================",
+        "info": "",
+        "x": 420,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "22adcec330addde8",
+        "type": "comment",
+        "z": "80f9e77d2f52f0b2",
+        "name": "=============================================================================================",
+        "info": "",
+        "x": 420,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "398d10a31d8fa80a",
+        "type": "comment",
+        "z": "80f9e77d2f52f0b2",
+        "name": "=============================================================================================",
+        "info": "",
+        "x": 420,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "6a1d107b692d037d",
+        "type": "comment",
+        "z": "80f9e77d2f52f0b2",
+        "name": "DiviD Grupos",
+        "info": "# DiviD Grupos\n## Flow para POST, GET e DELETE de grupos",
+        "x": 670,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "3dd8b1966a88481f",
+        "type": "comment",
+        "z": "80f9e77d2f52f0b2",
+        "name": "DiviD Usuários",
+        "info": "# DiviD Usuários\n## Flow para POST, GET e DELETE de usuários",
+        "x": 680,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "31be53ef2bae64b6",
+        "type": "comment",
+        "z": "80f9e77d2f52f0b2",
+        "name": "DiviD Despesas",
+        "info": "# DiviD Despesas\n## Flow para POST, GET e DELETE de despesas",
+        "x": 680,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "3d51870521e99801",
+        "type": "cloudantplus",
+        "host": "https://apikey-v2-2lmhq1gzwjoabomcns4s0xk9ql6r2vtp8kl6mh863fts:c49394da412cd8baa3bd5c3b025f248f@8472bb0f-4f34-4675-bd25-3cf7a52343d1-bluemix.cloudantnosqldb.appdomain.cloud",
+        "name": "Banco de dados DiviD",
+        "useapikey": true
+    }
+]
