@@ -34,16 +34,18 @@ struct DetailViewTela4: View {
                         .font(.system(size: 35))
                         .fontWeight(.bold)
                         .padding()
+                    Spacer()
                     Label("", systemImage: "gearshape.fill").font(.system(size: 40))
                 }
                 HStack {
-                    Label("\(grupo.integrantes.count)", systemImage: "person.crop.circle.fill").font(.system(size: 35))
-                    
-                    Label("", systemImage: "cart.badge.questionmark").font(.system(size: 80))
+                    Label("\(grupo.integrantes.count)", systemImage: "person.crop.circle.fill").font(.system(size: 30))
+                        Spacer()
+                    Label("", systemImage: "cart.badge.questionmark").font(.system(size: 30))
+                    Spacer()
                     Text("\(grupo.created_at)").font(.system(size: 20))
                 } // Layout de cima
                 
-                
+                Spacer()
                 ScrollView{
                     VStack{
                         ForEach( viewModel.despesas ){ desp in
@@ -61,7 +63,7 @@ struct DetailViewTela4: View {
                                     }
                                 }
                             }
-                        }.frame(width: 300, height: 150).foregroundColor(.black).background{Color.gray}.cornerRadius(25) //Fim ForEach
+                        }.frame(width: 300, height: 150).foregroundColor(.black).background{Color("Bg")}.cornerRadius(25).bold() //Fim ForEach
                     }//Fim VStack
                 } //Fim ScrollView
             }//Fim VStack Principal
