@@ -26,9 +26,13 @@ struct FilterUsers: Hashable {
 
 
 struct NovaDespesaView: View {
+    
+    var grupo: Grupo
     @State var nomeDespesa = ""
     @State var valorDespesa = ""
     @State var contador = 0
+    @StateObject var viewModel = ViewModel()
+    
     var body: some View {
         
         NavigationStack{
@@ -44,14 +48,14 @@ struct NovaDespesaView: View {
                         TextField("Nome", text: $nomeDespesa)
                             .multilineTextAlignment(.center)
                             .frame(width: 300, height: 40)
-                            .background( Color("inputBG"))
+                            .background( Color("HomeBG"))
                             .cornerRadius(5)
                             .padding()
                         
                         TextField("Valor", text: $valorDespesa)
                             .multilineTextAlignment(.center)
                             .frame(width: 300, height: 40)
-                            .background( Color("inputBG"))
+                            .background( Color("HomeBG"))
                             .cornerRadius(5)
                     }
                     
@@ -66,7 +70,7 @@ struct NovaDespesaView: View {
                     
                     VStack{
                         
-                        ScrollView(.vertical){
+                        ScrollView{
                             ForEach(Array(MyVariables.selectedUsers.enumerated()), id: \.offset) { index, integrante in
                                 
                                 
@@ -75,14 +79,14 @@ struct NovaDespesaView: View {
                                     Text(integrante.user.nome)
                                         .fontWeight(.semibold)
                                         .foregroundColor(.black)
-                                    
-                                    Spacer()
-                                    
-                                    
-                                    ZStack{
+                                    HStack{
+                                        Spacer()
+                                        
+                                        
                                         Circle()
                                             .stroke( MyVariables.selectedUsers[index].checked ? Color("green") : Color.gray, lineWidth: 1)
                                             .frame(width: 25, height: 25)
+                                            //.offset(y: CGFloat(40 * index))
                                         
                                         
                                         if MyVariables.selectedUsers[index].checked {
@@ -90,8 +94,9 @@ struct NovaDespesaView: View {
                                                 .font(.system(size: 25))
                                                 .foregroundColor(.green)
                                         }
+                                        
                                     }
-                                }
+                                }.offset(y: CGFloat(40 * index))
                                 .padding(.horizontal)
                                 .contentShape(Rectangle())
                                 .onTapGesture {
@@ -101,9 +106,7 @@ struct NovaDespesaView: View {
                                     }else {
                                         contador = contador - 1
                                     }
-                                        print(MyVariables.selectedUsers[index])
-                                        print(MyVariables.selectedUsers[index].checked)
-                                    }
+                                }
                                 
                                 
                                    
@@ -115,12 +118,48 @@ struct NovaDespesaView: View {
                     
                     Spacer()
                     Button("Criar"){
-                        print(MyVariables.selectedUsers)
+                        let despID = String(Int.random(in: 1...10000))
+                        
+                        var dividasToCreate:[Divida] = []
+                        var qntCaloteiros = 0
+                        for usu in MyVariables.selectedUsers{
+                            if usu.checked{
+                                qntCaloteiros = qntCaloteiros + 1
+                            }
+                        }
+                        
+                        let a:Double = Double(valorDespesa)!
+                        let b:Double = Double(qntCaloteiros)
+                        let valorDividido:Double = a / b
+                        
+                        print(valorDividido)
+                        
+                        let despesaToCreate: Despesa = Despesa(id: despID, nome: nomeDespesa, donoID: "1", created_at: "25/08")
+                        
+                        for usu in MyVariables.selectedUsers{
+                            if(usu.checked){
+                                dividasToCreate.append(Divida(id: String(Int.random(in: 1...10000)), userID: usu.user.id, despesaID: despID, valor: valorDividido, status: false))
+                            }
+                            
+                        }
+//                        print(despesaToCreate)
+//                        print(dividasToCreate)
+                        
+                        //criar nova despesa e suas dividas
+//                        viewModel.createDespesa(data: despesaToCreate)
+//                        viewModel.createDividas(data: dividasToCreate)
+//                        
+                        // adicionar a nova despesa no array de despesas di grupo
+                        let aux = grupo.despesas
+                        
+                        let novoGrupo = Grupo(_id: grupo._id, _rev: grupo._rev, nome: grupo.nome, integrantes: grupo.integrantes, despesas: aux, created_at: grupo.created_at)
+                        
+//                        viewModel.attDespesasGrupo(data: novoGrupo)
                         // aqui iremos fazer a requisicao de criacao de uma nova despesa
                     }
                     .frame(width: 150, height: 50)
                     .padding()
-                    .background(Color("GalaxyBlue"))
+                    .background(Color("Purple"))
                     .foregroundColor(.white)
                     .font(.headline)
                     .cornerRadius(14)
@@ -146,6 +185,6 @@ struct NovaDespesaView: View {
 struct NovaDespesaView_Previews: PreviewProvider {
 
     static var previews: some View {
-        NovaDespesaView()
+        NovaDespesaView( grupo: Grupo(_id:"1",_rev:"1", nome: "Grupo 1", integrantes: ["1","2","3"], despesas: ["1","2"], created_at: "24/08"))
     }
 }

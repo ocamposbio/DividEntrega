@@ -36,9 +36,21 @@ struct DetailViewTela4: View {
                 }
                 HStack {
                     Label("\(grupo.integrantes.count)", systemImage: "person.crop.circle.fill").font(.system(size: 35))
+                        .padding()
                     
-                    Label("", systemImage: "cart.badge.questionmark").font(.system(size: 80))
+                    Spacer()
+                    NavigationLink( destination: NovaDespesaView(grupo: grupo)){
+                        Image(systemName: "doc.fill.badge.plus")
+                            .font(.system(size: 40))
+                            .foregroundColor(.black)
+                    }
+                    
+                    
+                    Spacer()
+                    
+                    
                     Text("\(grupo.created_at)").font(.system(size: 20))
+                        .padding()
                 } // Layout de cima
                 
                 
@@ -72,7 +84,7 @@ struct DetailViewTela4: View {
 }
 struct DetailViewTela4_Previews: PreviewProvider {
     static var previews: some View {
-        DetailViewTela4( grupo: Grupo( id: "1",nome: "Grupo X", integrantes: ["1","2","3"], despesas: ["1","2","3"], created_at: "12/09/2022") )
+        DetailViewTela4( grupo: Grupo( _id: "1", _rev:"1" , nome: "Grupo X", integrantes: ["1","2","3"], despesas: ["1","2","3"], created_at: "12/09/2022") )
     }
 }
 
