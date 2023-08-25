@@ -49,7 +49,7 @@ struct DetailViewTela6: View {
                                 
                                 if ( divida.despesaID == despesa.id && usu.id == divida.userID){
                                     
-                                    HStack{
+                                    
                                         HStack{
                                             VStack{
                                                 HStack{
@@ -69,14 +69,13 @@ struct DetailViewTela6: View {
                                                 }
                                             }
                                         }
-                                    }
+                                    
                                     
                                 }
                                 
                                 
                             }
                         }
-                        .padding(10)
                         
                         VStack{
                             
@@ -112,7 +111,7 @@ struct DetailViewTela6: View {
 
 //struct DetailViewTela6_Previews: PreviewProvider {
 //    static var previews: some View {
-//        DetailViewTela6( despesa: Despesa(id: "1", nome: "coca cola", donoID: "1", created_at: "Hoje") )
+//        DetailViewTela6( grupo: Grupo(id: "1", nome: "G", integrantes: <#T##[String]#>, despesas: <#T##[String]#>, created_at: <#T##String#>), despesa: <#T##Despesa#>)
 //    }
 //}
 
